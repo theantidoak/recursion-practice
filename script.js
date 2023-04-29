@@ -34,6 +34,7 @@ function fibsRec(num, fibArray=[0, 1, -1]) {
   const firstNum = fibsRec(num - 1, fibArray)[num - 2];
   const secondNum = fibsRec(num - 1, fibArray)[num - 1];
   fibArray[num] = firstNum + secondNum;
+
   return fibArray.slice(0, fibArray.length - 1);
 }
 
@@ -59,3 +60,35 @@ function fibsProp(num) {
 }
 
 console.log(fibsProp(8).fibArray)
+
+
+// Build a function mergeSort that takes in an array and returns a 
+// sorted array, using a recursive merge sort methodology.
+
+const example = [9, 4, 6, 1, 2, 6, 4, 8, 5, 9, 1];
+
+function merge(low, high) {
+  let sortedArray = [];
+
+  while (low.length && high.length) {
+    if (low[0] < high[0]) {
+      sortedArray.push(low.shift())
+    } else {
+      sortedArray.push(high.shift())
+    }
+  }
+
+  return [...sortedArray, ...low, ...high];
+}
+
+function mergeSort(array) {
+  if (array.length <= 1) return array;
+
+  const mid = Math.floor(array.length / 2);
+  const low = mergeSort(array.slice(0, mid));
+  const high = mergeSort(array.slice(mid));
+
+  return merge(low, high);
+}
+
+console.log(mergeSort(example))
